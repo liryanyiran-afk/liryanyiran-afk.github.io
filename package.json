@@ -1,0 +1,12 @@
+{
+  "name": "bitgates-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Bilingual brand website for HKU BitGates Society.",
+  "scripts": {
+    "build": "npm run check",
+    "preview": "python3 -m http.server 4321 --directory public",
+    "start": "python3 -m http.server 4321 --directory public",
+    "check": "python3 - <<'PY'\nfrom html.parser import HTMLParser\nfrom pathlib import Path\nclass P(HTMLParser): pass\nP().feed(Path('public/index.html').read_text())\nprint('HTML parsed')\nPY"
+  }
+}

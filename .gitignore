@@ -1,0 +1,11 @@
+node_modules/
+.DS_Store
+.vercel/
+.wrangler/
+dist/
+deploy/
+tmp-team-extract/
+source-bitgates-brief-2026.pdf
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
