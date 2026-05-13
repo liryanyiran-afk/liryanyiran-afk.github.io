@@ -57,6 +57,7 @@ body {
 img {
   display: block;
   max-width: 100%;
+  height: auto;
 }
 
 a {
@@ -127,6 +128,16 @@ button {
 .brand-logo {
   width: 68px;
   height: auto;
+}
+
+
+.brand-logo,
+.visual-logo,
+.wing-mark,
+.manifesto-object img,
+.footer-logo {
+  height: auto;
+  object-fit: contain;
 }
 
 .brand-wordmark {
