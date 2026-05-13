@@ -2667,3 +2667,157 @@ body[data-mode="bilingual"] .report-highlight-text .en {
     height: 32px;
   }
 }
+
+/* Impeccable team nameplates: quieter, sharper identity blocks for every core member. */
+.member-card {
+  position: relative;
+  overflow: hidden;
+  border-color: oklch(74% 0.026 105 / .72);
+  background:
+    radial-gradient(circle at 12% 8%, oklch(89% 0.034 118 / .74), transparent 20rem),
+    linear-gradient(135deg, oklch(97% 0.014 96 / .98), oklch(93% 0.024 104 / .96));
+}
+
+.member-card::after {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  pointer-events: none;
+  border-radius: calc(var(--radius-lg) - 10px);
+  border: 1px solid oklch(100% 0 0 / .34);
+}
+
+.member-content {
+  position: relative;
+  z-index: 1;
+}
+
+.member-nameplate {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  max-width: 780px;
+  margin: 0 0 clamp(22px, 3vw, 34px);
+  padding: clamp(18px, 2vw, 28px);
+  border: 1px solid oklch(70% 0.03 112 / .58);
+  border-radius: 28px;
+  background:
+    linear-gradient(120deg, oklch(98% 0.012 96 / .92), oklch(94% 0.022 110 / .84)),
+    var(--paper);
+  box-shadow:
+    inset 0 1px 0 oklch(100% 0 0 / .62),
+    0 18px 42px oklch(28% 0.032 150 / .075);
+}
+
+.member-nameplate::before {
+  content: "BTG";
+  position: absolute;
+  right: clamp(14px, 2vw, 26px);
+  bottom: clamp(8px, 1.4vw, 18px);
+  z-index: -1;
+  color: oklch(32% 0.06 155 / .055);
+  font-size: clamp(70px, 8vw, 128px);
+  font-weight: 900;
+  line-height: .72;
+  letter-spacing: -.12em;
+}
+
+.member-role {
+  display: grid;
+  gap: 5px;
+  width: min(100%, 650px);
+  margin: 0 0 clamp(14px, 1.7vw, 22px);
+  padding: 0;
+  border: 0;
+  color: var(--red);
+  text-transform: none;
+}
+
+body[data-mode="bilingual"] .member-role .zh::after {
+  content: none;
+}
+
+.member-role .zh {
+  color: var(--red);
+  font-size: clamp(14px, 1.15vw, 17px);
+  font-weight: 760;
+  letter-spacing: .08em;
+  line-height: 1.35;
+}
+
+body[data-mode="bilingual"] .member-role .en,
+.member-role .en {
+  display: block;
+  margin-top: 0;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: clamp(10px, .8vw, 12px);
+  font-weight: 680;
+  letter-spacing: .14em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.member-name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: clamp(8px, 1.2vw, 18px) clamp(14px, 2vw, 28px);
+  max-width: none;
+  margin: 0;
+  color: var(--green);
+  line-height: .94;
+  letter-spacing: 0;
+}
+
+.member-name-zh {
+  display: block;
+  font-size: clamp(44px, 5.8vw, 86px);
+  font-weight: 900;
+  letter-spacing: -.085em;
+  line-height: .94;
+  text-wrap: balance;
+}
+
+.member-name-en {
+  display: block;
+  padding-bottom: .28em;
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: clamp(16px, 1.7vw, 26px);
+  font-weight: 720;
+  letter-spacing: .16em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.member-content ul {
+  margin-top: 0;
+}
+
+@media (max-width: 920px) {
+  .member-nameplate {
+    max-width: none;
+  }
+
+  .member-name-zh {
+    font-size: clamp(42px, 10vw, 76px);
+  }
+}
+
+@media (max-width: 640px) {
+  .member-nameplate {
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  .member-name {
+    display: grid;
+    gap: 10px;
+  }
+
+  .member-name-en {
+    padding-bottom: 0;
+    font-size: 14px;
+  }
+}
