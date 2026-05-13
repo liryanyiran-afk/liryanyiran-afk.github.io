@@ -2992,3 +2992,130 @@ body[data-mode="bilingual"] .qr-caption .en {
   display: block;
   margin-top: 4px;
 }
+
+/* Team nameplate v3: move titles away from the name mass instead of stacking them tightly above. */
+.member-nameplate {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, .46fr);
+  grid-template-areas: "name role";
+  column-gap: clamp(28px, 5vw, 72px);
+  align-items: end;
+  max-width: 920px;
+  min-height: clamp(170px, 15vw, 230px);
+  padding: clamp(24px, 3vw, 42px);
+}
+
+.member-nameplate::before {
+  right: auto;
+  left: clamp(18px, 2vw, 30px);
+  bottom: clamp(12px, 1.5vw, 22px);
+  font-size: clamp(82px, 9vw, 148px);
+  opacity: .72;
+}
+
+.member-role {
+  grid-area: role;
+  align-self: start;
+  justify-self: end;
+  width: min(100%, 360px);
+  margin: 0;
+  padding: 16px 18px;
+  border: 1px solid oklch(72% 0.03 110 / .58);
+  border-radius: 20px;
+  background: oklch(98% 0.012 96 / .62);
+  box-shadow: inset 0 1px 0 oklch(100% 0 0 / .5);
+}
+
+.member-role .zh {
+  font-size: clamp(13px, 1vw, 15px);
+  letter-spacing: .05em;
+}
+
+body[data-mode="bilingual"] .member-role .en,
+.member-role .en {
+  margin-top: 8px;
+  font-size: clamp(10px, .74vw, 11px);
+  letter-spacing: .11em;
+}
+
+.member-name {
+  grid-area: name;
+  display: grid;
+  gap: clamp(12px, 1.5vw, 20px);
+  align-self: end;
+}
+
+.member-name-zh {
+  font-size: clamp(58px, 7.2vw, 112px);
+  line-height: .86;
+}
+
+.member-name-en {
+  width: fit-content;
+  padding: 8px 12px 7px;
+  border: 1px solid oklch(68% 0.028 108 / .52);
+  border-radius: 999px;
+  background: oklch(95% 0.018 100 / .74);
+  color: var(--ink-soft);
+  font-size: clamp(14px, 1.15vw, 18px);
+  letter-spacing: .18em;
+}
+
+@media (max-width: 920px) {
+  .member-nameplate {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "role"
+      "name";
+    row-gap: 30px;
+    min-height: 0;
+  }
+
+  .member-role {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 640px) {
+  .member-nameplate {
+    row-gap: 24px;
+  }
+
+  .member-name-zh {
+    font-size: clamp(48px, 15vw, 78px);
+  }
+}
+
+/* Social card hardening: keep all three cards dark, even for button defaults and focus states. */
+.social-list li {
+  background: oklch(92% 0.02 96 / .08) !important;
+}
+
+.social-link,
+.social-link:is(a, button) {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: oklch(92% 0.02 96) !important;
+}
+
+.social-link span {
+  color: inherit;
+}
+
+.social-link img {
+  flex: 0 0 56px;
+  width: 56px;
+  height: 56px;
+  padding: 10px;
+  border-radius: 14px;
+  background: oklch(96% 0.014 96);
+  object-fit: contain;
+}
+
+.social-list li:first-child .social-link img {
+  padding: 8px;
+  background: oklch(96% 0.014 96);
+  box-shadow: none;
+}
