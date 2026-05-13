@@ -120,7 +120,11 @@ function updateFilterButtons(filter) {
 
 function renderReportCard(report, index) {
   const tags = report.tags.map((tag) => `<li>${escapeHtml(tag)}</li>`).join('');
-  const highlights = report.highlights.map((item) => `<li>${bilingual(item)}</li>`).join('');
+  const highlights = report.highlights.map((item, itemIndex) => `
+        <li>
+          <span class="report-highlight-index">${String(itemIndex + 1).padStart(2, '0')}</span>
+          <span class="report-highlight-text">${bilingual(item)}</span>
+        </li>`).join('');
   const sourceAction = report.source ? `
       <div class="report-file-actions">
         <a href="${escapeHtml(report.source.docx)}" download><span class="zh">原文文档</span><span class="en">Source DOCX</span></a>
@@ -142,7 +146,10 @@ function renderReportCard(report, index) {
         <p class="zh">${escapeHtml(report.summary.zh)}</p>
         <p class="en">${escapeHtml(report.summary.en)}</p>
       </div>
-      <ul class="report-highlights">${highlights}</ul>
+      <div class="report-insight-block">
+        <p class="report-insight-label"><span class="zh">关键判断</span><span class="en">Key findings</span></p>
+        <ul class="report-highlights">${highlights}</ul>
+      </div>
       <ul class="report-tags">${tags}</ul>
       ${sourceAction}
       <div class="report-card-actions">
