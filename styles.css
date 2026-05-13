@@ -2698,7 +2698,7 @@ body[data-mode="bilingual"] .report-highlight-text .en {
   overflow: hidden;
   max-width: 780px;
   margin: 0 0 clamp(22px, 3vw, 34px);
-  padding: clamp(18px, 2vw, 28px);
+  padding: clamp(22px, 2.4vw, 34px) clamp(18px, 2vw, 28px) clamp(24px, 2.8vw, 38px);
   border: 1px solid oklch(70% 0.03 112 / .58);
   border-radius: 28px;
   background:
@@ -2724,9 +2724,9 @@ body[data-mode="bilingual"] .report-highlight-text .en {
 
 .member-role {
   display: grid;
-  gap: 5px;
+  gap: 7px;
   width: min(100%, 650px);
-  margin: 0 0 clamp(14px, 1.7vw, 22px);
+  margin: 0 0 clamp(30px, 3.6vw, 52px);
   padding: 0;
   border: 0;
   color: var(--red);
@@ -2807,8 +2807,12 @@ body[data-mode="bilingual"] .member-role .en,
 
 @media (max-width: 640px) {
   .member-nameplate {
-    padding: 18px;
+    padding: 20px 18px 24px;
     border-radius: 22px;
+  }
+
+  .member-role {
+    margin-bottom: 28px;
   }
 
   .member-name {
