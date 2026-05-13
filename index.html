@@ -577,13 +577,39 @@
           <p>Poised for the Verge.</p>
         </div>
         <ul class="social-list" aria-label="Social accounts">
-          <li><img src="assets/social-x-clean.svg" alt="X account icon" loading="lazy" decoding="async" fetchpriority="low"><span>@BitGates_HKU</span></li>
-          <li><img src="assets/social-wechat.png" alt="WeChat official account icon" loading="lazy" decoding="async" fetchpriority="low" width="256" height="76"><span>@HKU BitGates Society</span></li>
-          <li><img src="assets/social-xiaohongshu.png" alt="Xiaohongshu icon" loading="lazy" decoding="async" fetchpriority="low" width="128" height="128"><span>比特盖茨 BitGates</span></li>
+          <li>
+            <a class="social-link" href="https://x.com/BitGates_HKU" target="_blank" rel="noopener noreferrer" aria-label="Open BitGates on X">
+              <img src="assets/social-x-clean.svg" alt="X account icon" loading="lazy" decoding="async" fetchpriority="low">
+              <span>@BitGates_HKU</span>
+            </a>
+          </li>
+          <li>
+            <button class="social-link" type="button" data-qr-open aria-controls="wechat-qr-dialog">
+              <img src="assets/social-wechat.png" alt="WeChat official account icon" loading="lazy" decoding="async" fetchpriority="low" width="256" height="76">
+              <span>@HKU BitGates Society</span>
+            </button>
+          </li>
+          <li>
+            <a class="social-link" href="https://xhslink.com/m/8MtDSoHm1ev" target="_blank" rel="noopener noreferrer" aria-label="Open BitGates on Xiaohongshu">
+              <img src="assets/social-xiaohongshu.png" alt="Xiaohongshu icon" loading="lazy" decoding="async" fetchpriority="low" width="128" height="128">
+              <span>比特盖茨 BitGates</span>
+            </a>
+          </li>
         </ul>
       </div>
     </section>
   </main>
+
+  <div class="qr-modal" id="wechat-qr-dialog" role="dialog" aria-modal="true" aria-labelledby="wechat-qr-title" hidden>
+    <button class="qr-backdrop" type="button" data-qr-close aria-label="Close WeChat QR dialog"></button>
+    <div class="qr-panel" role="document">
+      <button class="qr-close" type="button" data-qr-close aria-label="Close WeChat QR code">×</button>
+      <p class="qr-kicker">WeChat Official Account</p>
+      <h2 id="wechat-qr-title"><span class="zh">扫码关注微信公众号</span><span class="en">Scan to follow BitGates on WeChat</span></h2>
+      <img src="assets/bitgates-wechat-qr.jpg" alt="WeChat QR code for HKU BitGates Society" loading="lazy" decoding="async" width="430" height="430">
+      <p class="qr-caption"><span class="zh">微信内长按或截图识别二维码。</span><span class="en">Long-press or scan this QR code in WeChat.</span></p>
+    </div>
+  </div>
 
   <section id="print-area" class="print-area" aria-hidden="true"></section>
 

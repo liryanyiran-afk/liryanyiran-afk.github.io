@@ -2825,3 +2825,170 @@ body[data-mode="bilingual"] .member-role .en,
     font-size: 14px;
   }
 }
+
+/* Clickable social cards and WeChat QR dialog. */
+.social-list li {
+  padding: 0;
+  min-height: 0;
+  overflow: hidden;
+  transition: transform .25s var(--ease-out), border-color .25s var(--ease-out), background .25s var(--ease-out);
+}
+
+.social-list li:has(.social-link:hover),
+.social-list li:has(.social-link:focus-visible) {
+  transform: translateY(-2px);
+  border-color: oklch(92% 0.02 96 / .48);
+  background: oklch(92% 0.02 96 / .13);
+}
+
+.social-link {
+  width: 100%;
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.social-link::after {
+  content: "↗";
+  margin-left: auto;
+  color: oklch(89% 0.02 96 / .58);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  transition: transform .25s var(--ease-out), color .25s var(--ease-out);
+}
+
+button.social-link::after {
+  content: "QR";
+  font-size: 11px;
+  letter-spacing: .12em;
+}
+
+.social-link:hover::after,
+.social-link:focus-visible::after {
+  color: var(--paper);
+  transform: translateX(3px);
+}
+
+.social-link:focus-visible {
+  outline: 2px solid oklch(92% 0.02 96 / .82);
+  outline-offset: -4px;
+  border-radius: 15px;
+}
+
+.is-qr-open {
+  overflow: hidden;
+}
+
+.qr-modal[hidden] {
+  display: none;
+}
+
+.qr-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  padding: var(--site-pad);
+}
+
+.qr-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background:
+    radial-gradient(circle at 50% 34%, oklch(49% 0.09 154 / .28), transparent 26rem),
+    oklch(10% 0.03 158 / .72);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+}
+
+.qr-panel {
+  position: relative;
+  width: min(100%, 520px);
+  padding: clamp(22px, 4vw, 34px);
+  border: 1px solid oklch(78% 0.025 105 / .7);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 90% 0%, oklch(88% 0.04 145 / .52), transparent 14rem),
+    var(--paper);
+  color: var(--ink);
+  box-shadow: 0 36px 90px oklch(8% 0.02 155 / .42);
+}
+
+.qr-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: oklch(95% 0.014 96);
+  color: var(--green);
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.qr-close:focus-visible,
+.qr-close:hover {
+  outline: none;
+  background: var(--green);
+  color: var(--paper);
+}
+
+.qr-kicker {
+  margin: 0 0 10px;
+  color: var(--red);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 760;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.qr-panel h2 {
+  margin: 0 44px 20px 0;
+  color: var(--green);
+  font-size: clamp(28px, 4vw, 42px);
+  line-height: 1;
+  letter-spacing: -.05em;
+}
+
+body[data-mode="bilingual"] .qr-panel h2 .en {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: .46em;
+  letter-spacing: -.02em;
+}
+
+.qr-panel img {
+  width: min(100%, 430px);
+  height: auto;
+  margin: 0 auto;
+  border: 10px solid oklch(98% 0.01 96);
+  border-radius: 24px;
+  box-shadow: 0 18px 46px oklch(28% 0.03 150 / .16);
+}
+
+.qr-caption {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
+}
+
+body[data-mode="bilingual"] .qr-caption .en {
+  display: block;
+  margin-top: 4px;
+}

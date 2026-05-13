@@ -193,6 +193,29 @@ function flashButton(button, zh, en) {
   }, 1400);
 }
 
+const qrDialog = document.getElementById('wechat-qr-dialog');
+let lastQrTrigger = null;
+
+function openWechatQr(trigger) {
+  if (!qrDialog) return;
+  lastQrTrigger = trigger || document.activeElement;
+  qrDialog.hidden = false;
+  body.classList.add('is-qr-open');
+  window.setTimeout(() => {
+    const closeButton = qrDialog.querySelector('.qr-close');
+    if (closeButton) closeButton.focus();
+  }, 0);
+}
+
+function closeWechatQr() {
+  if (!qrDialog || qrDialog.hidden) return;
+  qrDialog.hidden = true;
+  body.classList.remove('is-qr-open');
+  if (lastQrTrigger && typeof lastQrTrigger.focus === 'function') {
+    lastQrTrigger.focus();
+  }
+}
+
 async function shareReport(slug, button) {
   const report = researchReports.find((item) => item.slug === slug);
   if (!report) return;
@@ -314,6 +337,18 @@ if (window.location.hash.startsWith('#report-')) {
 }
 
 document.addEventListener('click', (event) => {
+  const qrOpen = event.target.closest('[data-qr-open]');
+  if (qrOpen) {
+    openWechatQr(qrOpen);
+    return;
+  }
+
+  const qrClose = event.target.closest('[data-qr-close]');
+  if (qrClose) {
+    closeWechatQr();
+    return;
+  }
+
   const filterButton = event.target.closest('[data-report-filter]');
   if (filterButton) {
     renderResearchReports(filterButton.dataset.reportFilter);
@@ -335,6 +370,12 @@ document.addEventListener('click', (event) => {
   const printButton = event.target.closest('[data-report-print]');
   if (printButton) {
     openReportPrintDialog(printButton.dataset.reportPrint, printButton, 'print');
+  }
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    closeWechatQr();
   }
 });
 
