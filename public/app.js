@@ -120,7 +120,11 @@ function updateFilterButtons(filter) {
 
 function renderReportCard(report, index) {
   const tags = report.tags.map((tag) => `<li>${escapeHtml(tag)}</li>`).join('');
-  const highlights = report.highlights.map((item) => `<li>${bilingual(item)}</li>`).join('');
+  const highlights = report.highlights.map((item, itemIndex) => `
+        <li>
+          <span class="report-highlight-index">${String(itemIndex + 1).padStart(2, '0')}</span>
+          <span class="report-highlight-text">${bilingual(item)}</span>
+        </li>`).join('');
   const sourceAction = report.source ? `
       <div class="report-file-actions">
         <a href="${escapeHtml(report.source.docx)}" download><span class="zh">原文文档</span><span class="en">Source DOCX</span></a>
@@ -142,7 +146,10 @@ function renderReportCard(report, index) {
         <p class="zh">${escapeHtml(report.summary.zh)}</p>
         <p class="en">${escapeHtml(report.summary.en)}</p>
       </div>
-      <ul class="report-highlights">${highlights}</ul>
+      <div class="report-insight-block">
+        <p class="report-insight-label"><span class="zh">关键判断</span><span class="en">Key findings</span></p>
+        <ul class="report-highlights">${highlights}</ul>
+      </div>
       <ul class="report-tags">${tags}</ul>
       ${sourceAction}
       <div class="report-card-actions">
@@ -184,6 +191,29 @@ function flashButton(button, zh, en) {
     button.innerHTML = original;
     button.disabled = false;
   }, 1400);
+}
+
+const qrDialog = document.getElementById('wechat-qr-dialog');
+let lastQrTrigger = null;
+
+function openWechatQr(trigger) {
+  if (!qrDialog) return;
+  lastQrTrigger = trigger || document.activeElement;
+  qrDialog.hidden = false;
+  body.classList.add('is-qr-open');
+  window.setTimeout(() => {
+    const closeButton = qrDialog.querySelector('.qr-close');
+    if (closeButton) closeButton.focus();
+  }, 0);
+}
+
+function closeWechatQr() {
+  if (!qrDialog || qrDialog.hidden) return;
+  qrDialog.hidden = true;
+  body.classList.remove('is-qr-open');
+  if (lastQrTrigger && typeof lastQrTrigger.focus === 'function') {
+    lastQrTrigger.focus();
+  }
 }
 
 async function shareReport(slug, button) {
@@ -307,6 +337,18 @@ if (window.location.hash.startsWith('#report-')) {
 }
 
 document.addEventListener('click', (event) => {
+  const qrOpen = event.target.closest('[data-qr-open]');
+  if (qrOpen) {
+    openWechatQr(qrOpen);
+    return;
+  }
+
+  const qrClose = event.target.closest('[data-qr-close]');
+  if (qrClose) {
+    closeWechatQr();
+    return;
+  }
+
   const filterButton = event.target.closest('[data-report-filter]');
   if (filterButton) {
     renderResearchReports(filterButton.dataset.reportFilter);
@@ -328,6 +370,12 @@ document.addEventListener('click', (event) => {
   const printButton = event.target.closest('[data-report-print]');
   if (printButton) {
     openReportPrintDialog(printButton.dataset.reportPrint, printButton, 'print');
+  }
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    closeWechatQr();
   }
 });
 
