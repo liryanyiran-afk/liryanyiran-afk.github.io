@@ -3119,3 +3119,22 @@ body[data-mode="bilingual"] .member-role .en,
   background: oklch(96% 0.014 96);
   box-shadow: none;
 }
+
+/* Mobile join cards: give the number medallion and title enough breathing room. */
+@media (max-width: 640px) {
+  .join-matrix {
+    gap: 16px;
+  }
+
+  .join-matrix article {
+    padding: clamp(24px, 7vw, 34px);
+  }
+
+  .join-matrix article > span {
+    margin-bottom: clamp(24px, 8vw, 38px);
+  }
+
+  .join-matrix h3 {
+    margin-bottom: clamp(26px, 7vw, 36px);
+  }
+}
