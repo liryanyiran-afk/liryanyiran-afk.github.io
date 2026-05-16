@@ -935,17 +935,26 @@ body[data-mode="bilingual"] .program-content h3 .en {
 }
 
 .partner-logo-card {
-  min-height: 104px;
+  min-height: 118px;
   display: grid;
   align-content: space-between;
-  gap: 10px;
-  padding: 14px;
+  gap: 12px;
+  padding: 16px;
+  overflow: hidden;
   border: 1px solid oklch(76% 0.03 105 / .58);
   border-radius: 18px;
   background:
+    radial-gradient(circle at 8% 8%, oklch(95% 0.026 145 / .72), transparent 9rem),
     linear-gradient(135deg, oklch(97% 0.014 96 / .98), oklch(90% 0.03 118 / .84));
   box-shadow: 0 12px 30px var(--shadow-soft);
   transition: transform .25s var(--ease-out), border-color .25s var(--ease-out), box-shadow .25s var(--ease-out);
+}
+
+.partner-logo-card--dark {
+  border-color: oklch(30% 0.04 155 / .72);
+  background:
+    radial-gradient(circle at 18% 12%, oklch(47% 0.08 260 / .32), transparent 10rem),
+    linear-gradient(135deg, oklch(20% 0.027 158), oklch(13% 0.012 158));
 }
 
 .partner-logo-card:hover {
@@ -955,10 +964,26 @@ body[data-mode="bilingual"] .program-content h3 .en {
 }
 
 .partner-logo-card img {
-  width: min(100%, 160px);
-  height: 45px;
+  width: min(100%, 178px);
+  height: 54px;
   object-fit: contain;
   object-position: left center;
+}
+
+.partner-logo-card--za img {
+  width: min(100%, 184px);
+  height: 62px;
+}
+
+.partner-logo-card--sinohope img {
+  width: min(100%, 176px);
+  height: 56px;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.partner-logo-card--okx img {
+  width: min(100%, 112px);
 }
 
 .partner-logo-card span {
@@ -968,6 +993,10 @@ body[data-mode="bilingual"] .program-content h3 .en {
   font-weight: 720;
   letter-spacing: .08em;
   text-transform: uppercase;
+}
+
+.partner-logo-card--dark span {
+  color: oklch(87% 0.02 105);
 }
 
 .manifesto-section {
