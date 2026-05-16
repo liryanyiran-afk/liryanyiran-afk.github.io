@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="90" viewBox="0 0 320 90" role="img" aria-labelledby="title">
+  <title id="title">Avenir Group</title>
+  <rect width="320" height="90" rx="18" fill="#f7f5ec"/>
+  <g transform="translate(20 19)">
+    <path d="M28 0 56 52H43l-6-12H18l-6 12H0L28 0Z" fill="#123c33"/>
+    <path d="M24 29h9l-4.6-10-4.4 10Z" fill="#d49a3f"/>
+  </g>
+  <text x="88" y="43" fill="#153f35" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="29" font-weight="720" letter-spacing="-.7">Avenir</text>
+  <text x="90" y="63" fill="#6d786d" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="12" font-weight="700" letter-spacing="2.4">GROUP</text>
+</svg>

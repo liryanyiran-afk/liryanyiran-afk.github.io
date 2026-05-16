@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="90" viewBox="0 0 320 90" role="img" aria-labelledby="title">
+  <title id="title">ZA Bank</title>
+  <rect width="320" height="90" rx="18" fill="#f7f5ec"/>
+  <g transform="translate(22 20)">
+    <rect x="0" y="0" width="54" height="54" rx="15" fill="#14a06f"/>
+    <path d="M13 18h26L20 38h21v7H11l19-20H13v-7Z" fill="#fff"/>
+  </g>
+  <text x="92" y="49" fill="#153f35" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="34" font-weight="780" letter-spacing="-.9">ZA Bank</text>
+  <text x="94" y="67" fill="#14a06f" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="10" font-weight="750" letter-spacing="2.5">DIGITAL BANKING</text>
+</svg>

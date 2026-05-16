@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="90" viewBox="0 0 320 90" role="img" aria-labelledby="title">
+  <title id="title">OKX DEX</title>
+  <rect width="320" height="90" rx="18" fill="#f7f5ec"/>
+  <g transform="translate(22 21)" fill="#111">
+    <rect x="0" y="0" width="14" height="14" rx="2"/><rect x="34" y="0" width="14" height="14" rx="2"/>
+    <rect x="17" y="17" width="14" height="14" rx="2"/><rect x="0" y="34" width="14" height="14" rx="2"/><rect x="34" y="34" width="14" height="14" rx="2"/>
+  </g>
+  <text x="88" y="43" fill="#111" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="32" font-weight="820" letter-spacing="-1.2">OKX</text>
+  <text x="157" y="43" fill="#153f35" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="25" font-weight="720" letter-spacing="-.8">DEX</text>
+  <text x="90" y="63" fill="#6d786d" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="750" letter-spacing="2.2">DECENTRALIZED EXCHANGE</text>
+</svg>
