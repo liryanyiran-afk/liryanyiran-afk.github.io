@@ -1167,7 +1167,7 @@ body[data-mode="bilingual"] .member-content li .en {
   font-weight: 760;
   color: var(--green);
   list-style: none;
-  transition: background .32s var(--ease-out), border-color .32s var(--ease-out), padding .32s var(--ease-out);
+  transition: background .32s var(--ease-out), border-color .32s var(--ease-out), color .32s var(--ease-out);
 }
 
 .member-content summary::-webkit-details-marker {
@@ -1195,21 +1195,52 @@ body[data-mode="bilingual"] .member-content li .en {
 }
 
 .member-content details .bilingual-stack {
-  overflow: hidden;
-  max-height: 0;
-  padding: 0 18px;
   color: var(--ink-soft);
   font-size: 15px;
-  opacity: 0;
-  transform: translateY(-8px);
-  transition: max-height .48s var(--ease-out), padding .48s var(--ease-out), opacity .34s var(--ease-out), transform .48s var(--ease-out);
 }
 
-.member-content details[open] .bilingual-stack {
-  max-height: 1200px;
-  padding: 14px 18px 20px;
+.member-content details .bilingual-stack.details-panel {
+  box-sizing: border-box;
+  height: 0;
+  max-height: none;
+  padding: 0;
+  overflow: hidden;
   opacity: 1;
-  transform: translateY(0);
+  transform: none;
+  transition: height .54s var(--ease-out);
+  will-change: height;
+}
+
+.member-content details[open] .bilingual-stack.details-panel {
+  height: auto;
+  padding: 0;
+}
+
+.member-content details .details-panel-inner {
+  display: grid;
+  gap: .72em;
+  padding: 14px 18px 20px;
+  opacity: 0;
+  transform: translate3d(0, -6px, 0);
+  transition: opacity .28s var(--ease-out), transform .46s var(--ease-out);
+}
+
+.member-content details[open] .details-panel-inner {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.member-content details.is-collapsing .details-panel-inner {
+  opacity: 0;
+  transform: translate3d(0, -4px, 0);
+  transition-duration: .18s, .3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .member-content details .bilingual-stack.details-panel,
+  .member-content details .details-panel-inner {
+    transition: none;
+  }
 }
 
 .governance-section {
@@ -1948,6 +1979,10 @@ body[data-mode="bilingual"] .member-role .en {
 
 .member-content details {
   margin-top: 0;
+}
+
+.member-card figure.portrait {
+  align-self: start;
 }
 
 @media (max-width: 920px) {

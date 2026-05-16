@@ -949,6 +949,8 @@ document.addEventListener('keydown', (event) => {
 
 function setupSmoothMemberDetails() {
   const detailItems = Array.from(document.querySelectorAll('.member-content details'));
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
   detailItems.forEach((details) => {
     const summary = details.querySelector('summary');
     const panel = summary ? summary.nextElementSibling : null;
@@ -957,56 +959,65 @@ function setupSmoothMemberDetails() {
     details.dataset.smoothDetails = 'true';
     panel.classList.add('details-panel');
 
+    let inner = Array.from(panel.children).find((child) => child.classList.contains('details-panel-inner'));
+    if (!inner) {
+      inner = document.createElement('div');
+      inner.className = 'details-panel-inner';
+      while (panel.firstChild) inner.appendChild(panel.firstChild);
+      panel.appendChild(inner);
+    }
+
+    const clearPanelHeight = () => {
+      panel.style.height = '';
+    };
+
     summary.addEventListener('click', (event) => {
       event.preventDefault();
       const isOpen = details.hasAttribute('open');
 
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (reduceMotion.matches) {
         details.toggleAttribute('open', !isOpen);
+        clearPanelHeight();
         return;
       }
 
       if (details.classList.contains('is-animating')) return;
       details.classList.add('is-animating');
 
-      const cleanup = () => {
-        panel.style.maxHeight = '';
-        panel.style.opacity = '';
-        panel.style.transform = '';
-        panel.style.padding = '';
-        details.classList.remove('is-animating');
+      let finished = false;
+      let fallbackTimer = 0;
+      const finish = () => {
+        if (finished) return;
+        finished = true;
+        window.clearTimeout(fallbackTimer);
+        panel.removeEventListener('transitionend', onTransitionEnd);
+        if (isOpen) details.removeAttribute('open');
+        details.classList.remove('is-animating', 'is-collapsing');
+        clearPanelHeight();
+      };
+      const onTransitionEnd = (transitionEvent) => {
+        if (transitionEvent.target === panel && transitionEvent.propertyName === 'height') finish();
       };
 
+      panel.addEventListener('transitionend', onTransitionEnd);
+      fallbackTimer = window.setTimeout(finish, 720);
+
       if (isOpen) {
-        panel.style.maxHeight = `${panel.scrollHeight}px`;
-        panel.style.opacity = '1';
-        panel.style.transform = 'translateY(0)';
-        panel.style.padding = '14px 18px 20px';
+        panel.style.height = `${panel.getBoundingClientRect().height}px`;
+        panel.offsetHeight;
+        details.classList.add('is-collapsing');
         requestAnimationFrame(() => {
-          panel.style.maxHeight = '0px';
-          panel.style.opacity = '0';
-          panel.style.transform = 'translateY(-8px)';
-          panel.style.padding = '0 18px';
+          panel.style.height = '0px';
         });
-        window.setTimeout(() => {
-          details.removeAttribute('open');
-          cleanup();
-        }, 480);
         return;
       }
 
       details.setAttribute('open', '');
-      panel.style.maxHeight = '0px';
-      panel.style.opacity = '0';
-      panel.style.transform = 'translateY(-8px)';
-      panel.style.padding = '0 18px';
+      panel.style.height = '0px';
+      panel.offsetHeight;
       requestAnimationFrame(() => {
-        panel.style.maxHeight = `${panel.scrollHeight}px`;
-        panel.style.opacity = '1';
-        panel.style.transform = 'translateY(0)';
-        panel.style.padding = '14px 18px 20px';
+        panel.style.height = `${inner.getBoundingClientRect().height}px`;
       });
-      window.setTimeout(cleanup, 500);
     });
   });
 }
