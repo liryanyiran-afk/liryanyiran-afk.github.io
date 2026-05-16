@@ -927,7 +927,7 @@ body[data-mode="bilingual"] .program-content h3 .en {
 
 .partner-logo-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 10px;
   padding: 0;
   margin: 0;
@@ -973,9 +973,6 @@ body[data-mode="bilingual"] .program-content h3 .en {
   object-fit: contain;
 }
 
-.partner-logo-card--okx img {
-  width: min(100%, 112px);
-}
 
 .partner-logo-card span {
   color: var(--green);
@@ -1163,15 +1160,56 @@ body[data-mode="bilingual"] .member-content li .en {
 
 .member-content summary {
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 15px 16px;
   font-weight: 760;
   color: var(--green);
+  list-style: none;
+  transition: background .32s var(--ease-out), border-color .32s var(--ease-out), padding .32s var(--ease-out);
+}
+
+.member-content summary::-webkit-details-marker {
+  display: none;
+}
+
+.member-content summary::before {
+  content: "";
+  width: 0;
+  height: 0;
+  flex: 0 0 auto;
+  border-block: 8px solid transparent;
+  border-inline-start: 14px solid var(--green);
+  transform-origin: 35% 50%;
+  transition: transform .44s var(--ease-out), opacity .28s var(--ease-out);
+}
+
+.member-content details[open] summary {
+  border-bottom: 1px solid var(--line);
+  background: oklch(96.5% 0.016 96 / .72);
+}
+
+.member-content details[open] summary::before {
+  transform: rotate(90deg);
 }
 
 .member-content details .bilingual-stack {
-  padding: 4px 18px 20px;
+  overflow: hidden;
+  max-height: 0;
+  padding: 0 18px;
   color: var(--ink-soft);
   font-size: 15px;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: max-height .48s var(--ease-out), padding .48s var(--ease-out), opacity .34s var(--ease-out), transform .48s var(--ease-out);
+}
+
+.member-content details[open] .bilingual-stack {
+  max-height: 1200px;
+  padding: 14px 18px 20px;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .governance-section {
@@ -1407,6 +1445,10 @@ body[data-mode="bilingual"] .join-matrix .en {
 }
 
 @media (max-width: 1180px) {
+  .partner-logo-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .nav-shell {
     grid-template-columns: minmax(210px, 1fr) auto auto;
   }
@@ -3180,5 +3222,11 @@ body[data-mode="bilingual"] .member-role .en,
 
   .join-matrix h3 {
     margin-bottom: clamp(26px, 7vw, 36px);
+  }
+}
+
+@media (max-width: 640px) {
+  .partner-logo-grid {
+    grid-template-columns: 1fr;
   }
 }

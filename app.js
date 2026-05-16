@@ -917,6 +917,73 @@ document.addEventListener('keydown', (event) => {
   }
 });
 
+
+function setupSmoothMemberDetails() {
+  const detailItems = Array.from(document.querySelectorAll('.member-content details'));
+  detailItems.forEach((details) => {
+    const summary = details.querySelector('summary');
+    const panel = summary ? summary.nextElementSibling : null;
+    if (!summary || !panel || details.dataset.smoothDetails === 'true') return;
+
+    details.dataset.smoothDetails = 'true';
+    panel.classList.add('details-panel');
+
+    summary.addEventListener('click', (event) => {
+      event.preventDefault();
+      const isOpen = details.hasAttribute('open');
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        details.toggleAttribute('open', !isOpen);
+        return;
+      }
+
+      if (details.classList.contains('is-animating')) return;
+      details.classList.add('is-animating');
+
+      const cleanup = () => {
+        panel.style.maxHeight = '';
+        panel.style.opacity = '';
+        panel.style.transform = '';
+        panel.style.padding = '';
+        details.classList.remove('is-animating');
+      };
+
+      if (isOpen) {
+        panel.style.maxHeight = `${panel.scrollHeight}px`;
+        panel.style.opacity = '1';
+        panel.style.transform = 'translateY(0)';
+        panel.style.padding = '14px 18px 20px';
+        requestAnimationFrame(() => {
+          panel.style.maxHeight = '0px';
+          panel.style.opacity = '0';
+          panel.style.transform = 'translateY(-8px)';
+          panel.style.padding = '0 18px';
+        });
+        window.setTimeout(() => {
+          details.removeAttribute('open');
+          cleanup();
+        }, 480);
+        return;
+      }
+
+      details.setAttribute('open', '');
+      panel.style.maxHeight = '0px';
+      panel.style.opacity = '0';
+      panel.style.transform = 'translateY(-8px)';
+      panel.style.padding = '0 18px';
+      requestAnimationFrame(() => {
+        panel.style.maxHeight = `${panel.scrollHeight}px`;
+        panel.style.opacity = '1';
+        panel.style.transform = 'translateY(0)';
+        panel.style.padding = '14px 18px 20px';
+      });
+      window.setTimeout(cleanup, 500);
+    });
+  });
+}
+
+setupSmoothMemberDetails();
+
 const revealItems = Array.from(document.querySelectorAll('[data-reveal]'));
 if ('IntersectionObserver' in window) {
   const observer = new IntersectionObserver((entries) => {
