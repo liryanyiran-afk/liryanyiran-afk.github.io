@@ -69,7 +69,9 @@ const researchReports = [
     source: {
       docx: 'assets/reports/260214-mstr.docx',
       markdown: 'assets/reports/260214-mstr.md',
-      filename: '260214 MSTR.docx'
+      filename: '260214 MSTR.docx',
+      pdf: 'assets/reports/260214-mstr.pdf',
+      pdfFilename: '260214 MSTR BitGates Research.pdf'
     }
   }
 ];
@@ -125,9 +127,16 @@ function renderReportCard(report, index) {
           <span class="report-highlight-index">${String(itemIndex + 1).padStart(2, '0')}</span>
           <span class="report-highlight-text">${bilingual(item)}</span>
         </li>`).join('');
-  const sourceAction = report.source ? `
+  const sourceLinks = [];
+  if (report.source?.pdf) {
+    sourceLinks.push(`<a href="${escapeHtml(report.source.pdf)}" download="${escapeHtml(report.source.pdfFilename || '')}"><span class="zh">正式 PDF</span><span class="en">Research PDF</span></a>`);
+  }
+  if (report.source?.docx) {
+    sourceLinks.push(`<a href="${escapeHtml(report.source.docx)}" download="${escapeHtml(report.source.filename || '')}"><span class="zh">原文文档</span><span class="en">Source DOCX</span></a>`);
+  }
+  const sourceAction = sourceLinks.length ? `
       <div class="report-file-actions">
-        <a href="${escapeHtml(report.source.docx)}" download><span class="zh">原文文档</span><span class="en">Source DOCX</span></a>
+        ${sourceLinks.join('')}
       </div>` : '';
 
   return `
@@ -811,12 +820,32 @@ function downloadBlob(blob, filename) {
   window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
+async function downloadReportPdfAsset(report) {
+  const response = await fetch(report.source.pdf, { cache: 'no-store' });
+  if (!response.ok) {
+    throw new Error(`Unable to fetch PDF asset: ${report.source.pdf}`);
+  }
+  const blob = await response.blob();
+  downloadBlob(blob, report.source.pdfFilename || `${report.dateIso}-${report.slug}-bitgates-research.pdf`);
+}
+
 async function exportReportPdf(slug, button) {
   const report = researchReports.find((item) => item.slug === slug);
   if (!report) return;
 
-  const restore = setReportActionBusy(button, '生成 PDF', 'Generating PDF');
+  const restore = setReportActionBusy(button, report.source?.pdf ? '下载 PDF' : '生成 PDF', report.source?.pdf ? 'Downloading PDF' : 'Generating PDF');
   try {
+    if (report.source?.pdf) {
+      try {
+        await downloadReportPdfAsset(report);
+        restore();
+        flashButton(button, 'PDF 已下载', 'PDF downloaded');
+        return;
+      } catch (assetError) {
+        console.warn('Direct PDF download failed; falling back to generated PDF.', assetError);
+      }
+    }
+
     if (document.fonts?.ready) await document.fonts.ready;
     const fullText = await getReportFullText(report);
     const blocks = parseReportMarkdownBlocks(fullText);
