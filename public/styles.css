@@ -941,20 +941,11 @@ body[data-mode="bilingual"] .program-content h3 .en {
   gap: 12px;
   padding: 16px;
   overflow: hidden;
-  border: 1px solid oklch(76% 0.03 105 / .58);
+  border: 1px solid oklch(82% 0.02 100 / .72);
   border-radius: 18px;
-  background:
-    radial-gradient(circle at 8% 8%, oklch(95% 0.026 145 / .72), transparent 9rem),
-    linear-gradient(135deg, oklch(97% 0.014 96 / .98), oklch(90% 0.03 118 / .84));
+  background: oklch(98.5% 0.008 96);
   box-shadow: 0 12px 30px var(--shadow-soft);
   transition: transform .25s var(--ease-out), border-color .25s var(--ease-out), box-shadow .25s var(--ease-out);
-}
-
-.partner-logo-card--dark {
-  border-color: oklch(30% 0.04 155 / .72);
-  background:
-    radial-gradient(circle at 18% 12%, oklch(47% 0.08 260 / .32), transparent 10rem),
-    linear-gradient(135deg, oklch(20% 0.027 158), oklch(13% 0.012 158));
 }
 
 .partner-logo-card:hover {
@@ -976,9 +967,9 @@ body[data-mode="bilingual"] .program-content h3 .en {
 }
 
 .partner-logo-card--sinohope img {
-  width: min(100%, 176px);
-  height: 56px;
-  border-radius: 10px;
+  width: min(100%, 188px);
+  height: 64px;
+  border-radius: 8px;
   object-fit: contain;
 }
 
@@ -995,9 +986,6 @@ body[data-mode="bilingual"] .program-content h3 .en {
   text-transform: uppercase;
 }
 
-.partner-logo-card--dark span {
-  color: oklch(87% 0.02 105);
-}
 
 .manifesto-section {
   padding: clamp(84px, 10vw, 152px) var(--site-pad);
